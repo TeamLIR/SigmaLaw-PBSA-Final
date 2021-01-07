@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+        
+        /* The Modal (background) */
+        .modal {
+          display: none; /* Hidden by default */
+          position: fixed; /* Stay in place */
+          z-index: 1; /* Sit on top */
+          padding-top: 100px; /* Location of the box */
+          left: 0;
+          top: 0;
+          width: 100%; /* Full width */
+          height: 100%; /* Full height */
+          overflow: auto; /* Enable scroll if needed */
+          background-color: rgb(0,0,0); /* Fallback color */
+          background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+        }
+        
+        /* Modal Content */
+        .modal-content {
+          width: 50% !important;
+          height: 80%; 
+          background-color: #fefefe;
+          margin: auto;
+          padding: 20px;
+          border: 1px solid #888;
+        }
+
+        .pop-up{
+            display: grid;
+            background: #fefefe;
+            border-radius: 16px;
+            width: 50% !important;
+            height: 80%; 
+            border: 1px solid #888;
+            grid-template-areas:
+                "header header"
+                "left right";
+            /* -ms-grid-columns: 417px 477px; */
+            grid-template-columns: auto;
+            margin: auto;
+        }
+        
+        .result__header {
+            background-color: #fefefe;
+            text-align: center;
+            grid-area: header;
+            margin: 20px;
+            font-size: 32px;
+        }
+
+        .image__left {
+            display: block;
+            width: auto;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            text-align: center;
+            grid-area: left;
+            border-radius: 10px;
+        }
+
+        .auth-preview {
+            position: relative;
+        }
+
+        .auth-preview__image-box {
+            padding: 0 0 30px 30px;
+        }
+
+        .auth-preview__image {
+            width: 387px;
+            height: 387px;
+        }
+
+        .signup-user__right {
+            display: flex;
+            width: auto;
+            padding-top: 0;
+            padding-bottom: 30px;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            flex-flow: column wrap;
+            -webkit-box-pack: center;
+            -ms-flex-pack: center;
+            justify-content: center;
+            grid-area: right;
+        }
+
+        .signup-user__social-box {
+            padding-top: 12px;
+        }
+
+        .box__social {
+            min-width: 300px;
+            max-width: 330px;
+            display: inline-block;
+        }
+
+        .signup-user-box__social-btn {
+            width: 80px;
+            display: block;
+            height: 150px;
+            margin-bottom: 16px;
+            line-height: 42px;
+            color: #fff;
+            border-radius: 21px;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-transition: background-color .2s;
+            transition: background-color .2s;
+            cursor: pointer;
+            padding: 0 16px;
+            font-size: 14px;
+            margin-left: 10px !important;
+        }
+
+        .signup-user-box__social-btn_google {
+            background-color: #db4437de;
+        }
+
+        .signup-user-box__social-btn_facebook {
+            background-color: #337ab7f0;
+        }
+
+
+        /* The Close Button */
+        .close {
+          color: #aaaaaa;
+          float: right;
+          font-size: 28px;
+          font-weight: bold;
+        }
+        
+        .close:hover,
+        .close:focus {
+          color: #000;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .resultimage {
+            height: inherit;
+            margin: 30px;
+        }
+        .footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            height: 150px;
+            width: 100%;
+            background-color:#a2785f3b;
+            color: white;
+            text-align: center;
+            }
+
+        .footer_content{
+            color: #806d66;
+            margin-top: 20px;
+            font-weight: 700;
+            text-align: left;
+        }
+
+        span.yourtext{
+            background: transparent url(/static/address.png) no-repeat 
+                        inherit left center;
+            padding-left: 15px
+}
+        </style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>SigmaLaw-ABSA</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+   <header class="header">
+   <nav class="navbar navbar-style">
+        <div style="margin: 0px; background-color: #a2785f3b; width: 100% !important;" class="container">
+            <div class="navbar-header">
+                <a href=""><img class="logo" src="/static/logo.png"></a>       
+            </div>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li><a style="color: #806d66;" href="">Home</a></li>
+                <li><a style="color: #806d66;" href="">Features</a></li>
+                <li><a style="color: #806d66;" href="">Team</a></li>
+            </ul>
+        </div>
+   </nav>  
+   <!-- <h1>SigmaLaw-Party Based Sentiment Analysis</h1> -->
+   <div style="width: 90% !important; margin-top: 50px;" class="container">
+       <div class="row">
+        <form>
+           <div style="border: 1px; padding: 0px 60px;" class="col-md-6 form-group">
+            <h1  style="color: #cc8c6d;text-align: center; font-weight: 700; text-transform: uppercase;">SigmaLaw-Party Based Sentiment Analysis</h1>
+            <label style="color: #6f6363 !important; font-size: 14px; font-weight: 500;" for="string">Sentence</label>
+            <input style="margin:5px 10px 20px 0px !important;" class="form-control" id="string" placeholder="Enter Sentence">
+            <label style="color: #6f6363 !important; font-size: 14px; font-weight: 500;" for="pet_members">Petitioner Members</label>
+            <input style="margin: 5px 10px 20px 0px !important;" class="form-control" id="pet_members" placeholder="Enter Petitioner Members">
+            <label style="color: #6f6363 !important; font-size: 14px; font-weight: 500;" for="def_members">Defendant Members</label>
+            <input style="margin: 5px 10px 20px 0px !important;" class="form-control" id="def_members" placeholder="Enter Defendant Members">
+             <div style="text-align: center;" class="row">
+            <a id="myBtn" style="margin: 30px 10px;
+            width: 150px;
+            padding: 10px;
+            border-radius: 20px;background-color: darkorange;color: white;" type="submit" class="btn btn-submit">Submit</a>
+            <a style="margin: 30px 10px;
+            width: 150px;
+            padding: 10px 30px;
+            border-radius: 20px;background-color: transparent; border: 2px solid darkorange; color: #333;"type="submit" class="btn btn-cancel">Cancel</a>
+           </div>
+           </div>
+           </form>
+           <div class="col-md-6">
+                <img style="float: right !important;" src="/static/image.jpg" class="img-responsive">
+           </div>
+       </div>
+
+<!--       <div class="footer d-flex justify-content-between">-->
+<!--        <div class="col-sm-4 footer_content" style="padding-left: 25px;">ABOUT-->
+<!--            <p style="font-size: 13px; font-weight: 400; padding-top: 15px;">SigmaLaw-ABSA provides an easy way to lawyers or legal officials to perform there da SigmaLaw-ABSA provides an easy way to lawyers or legal officials to perform there da SigmaLaw-ABSA provides an easy way to lawyers or legal officials to perform there da </p>-->
+<!--        </div>-->
+<!--        <div class="col-sm-5 footer_content" style="padding-left: 60px;">CONTACT US-->
+<!--            <p style="font-size: 13px;margin-bottom: auto; font-weight: 400;padding-top: 15px;" ><i style="font-size:26px" class="fa fa-map-marker"></i><span style="margin-left: 20px; position: absolute;">Department of Computer Science & Engineering,-->
+<!--               University of Moratuwa,-->
+<!--               Sri Lanka.</span>-->
+<!--            </p>-->
+<!--            <p style="font-size: 13px; margin-bottom: auto; font-weight: 400;"><i style="font-size:26px" class="fa fa-phone"></i><span style="margin-left: 10px; position: absolute;">(+94) 71 7438927</span></p>-->
+<!--            <p style="font-size: 13px; font-weight: 400;"><i style="font-size:24px" class="fa fa-envelope"></i><span style="margin-left: 10px; position: absolute;">sigmalaw.absa@gmail.com</span></p>-->
+<!--        </div>  -->
+               
+        <div class="col-sm-3 footer_content">FOLLOW US
+            <p style="padding-top: 25px;"><i class="fa fa-facebook-square" style="margin: 0 6px; font-size:48px;color: #3b5998d1"></i><span></span>
+            <i class="fa fa-github" style="margin: 0 6px; font-size:48px; color:#333333d6"></i></i><span></span>
+            <i class="fa fa-linkedin-square" style="margin: 0 6px; font-size:48px;color:#2867b2d9"></i><span></span></p>
+        </div>      
+    </div>
+   </header>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <span class="close">&times;</span>
+  <div class="pop-up w3-animate-top">
+    <!-- <span class="close">&times;</span> -->
+   <div class="result__header">Here is your result!</div> 
+    <!-- <div style="font-size: 32px;text-align: center;">Here is your result!</div> -->
+    <div class="image__left">
+        <div class="auth-preview">
+            <div class="auth-preview__image-box">
+                <img class="auth-preview__image" src="/static/result_image.jpg">
+            </div>
+        </div>
+    </div>   
+    
+    <div class="signup-user__right">
+        <div class="signup-user__social-box">
+            <div class="box__social signup-user-box__social-btn signup-user-box__social-btn_google">
+               <h1 style="text-align: center; padding: 20px; font-size: 30px !important;">Petitioner</h1>
+               <h3 style="text-align: center; padding: 10px; margin: 0;">Negative</h3>
+            </div>            
+        </div>
+
+        <div class="signup-user__social-box">
+            <div class="box__social signup-user-box__social-btn signup-user-box__social-btn_facebook">
+                <h1 style="text-align: center; padding: 20px; font-size: 30px !important">Defendant</h1>
+               <h3 style="text-align: center; padding: 10px; margin: 0;">Positive</h3>
+            </div>            
+        </div>
+    </div>
+    </div>
+</div>
+
+   <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+    
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+    
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+    
+    // When the user clicks the button, open the modal 
+    btn.onclick = function() {
+      modal.style.display = "block";
+    }
+    
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+    
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+    </script>
+
+</body>
+</html>

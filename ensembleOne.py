@@ -139,6 +139,8 @@ def pred(text,petitioner,defendant,models_list, opt_list, tokenizer,loaded_model
 
     # evaluate model on test set
     yhat, prob = stacked_prediction(pred_list, loaded_model)
+    words = text.split(" ")
+    neg_words = ["not", "no", "never"]
     # print ("prediction.......",yhat)
     # acc = accuracy_score(testy, yhat)
     # print('Stacked Test Accuracy: %.3f' % acc)
@@ -155,6 +157,19 @@ def pred(text,petitioner,defendant,models_list, opt_list, tokenizer,loaded_model
     def_positive = []
     def_negative = []
     def_neutral = []
+    negation = False
+    neg_count = 0
+    for i in neg_words:
+        if (i in words):
+            negation = True
+            neg_count += 1
+    if (negation and neg_count % 2 != 0):
+        for i in range(len(yhat)):
+            if (yhat[i] == 0):
+                yhat[i] = 2
+            elif (yhat[i] == 2):
+                yhat[i] = 0
+
     pet_flag = 0
     def_flag = 0
     for i in range(len(yhat)):

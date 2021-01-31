@@ -126,6 +126,13 @@ def pred(text,petitioner,defendant,models_list, opt_list, tokenizer,loaded_model
 
     party = f"[{petitioner_list},{defendant_list}]"
 
+    words = text.split(" ")
+    check = all(item in words for item in party)
+
+    # if (not check):
+    #     print("false")
+    #     return False
+    # else:
     csv_file = '/raw_input.csv'
 
     with open(csv_file, 'w', newline='') as input_file:
@@ -139,7 +146,8 @@ def pred(text,petitioner,defendant,models_list, opt_list, tokenizer,loaded_model
 
     # evaluate model on test set
     yhat, prob = stacked_prediction(pred_list, loaded_model)
-    words = text.split(" ")
+
+
     neg_words = ["not", "no", "never"]
     # print ("prediction.......",yhat)
     # acc = accuracy_score(testy, yhat)
@@ -157,19 +165,34 @@ def pred(text,petitioner,defendant,models_list, opt_list, tokenizer,loaded_model
     def_positive = []
     def_negative = []
     def_neutral = []
+    #---------------------------------------------------
     negation = False
     neg_count = 0
     for i in neg_words:
         if (i in words):
             negation = True
             neg_count += 1
-    if (negation and neg_count % 2 != 0):
-        for i in range(len(yhat)):
-            if (yhat[i] == 0):
-                yhat[i] = 2
-            elif (yhat[i] == 2):
-                yhat[i] = 0
-
+    if (petitioner_list[0] != "" and defendant_list[0] != ""):
+        if (negation and neg_count % 2 != 0):
+            for i in range(len(yhat)):
+                if (yhat[i] == 0):
+                    yhat[i] = 2
+                elif (yhat[i] == 2):
+                    yhat[i] = 0
+    if (len(petitioner_list) == 1 and petitioner_list[0] != "" and len(defendant_list) == 1 and defendant_list[
+        0] != ""):
+        if (yhat[0] == yhat[1] and yhat[0] != 1):
+            if (max(prob[0]) > max(prob[1])):
+                if (yhat[1] == 0):
+                    yhat[1] = 2
+                elif (yhat[1] == 2):
+                    yhat[1] = 0
+            elif (max(prob[1]) > max(prob[0])):
+                if (yhat[0] == 0):
+                    yhat[0] = 2
+                elif (yhat[0] == 2):
+                    yhat[0] = 0
+    # ---------
     pet_flag = 0
     def_flag = 0
     for i in range(len(yhat)):

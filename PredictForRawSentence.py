@@ -9,7 +9,7 @@ from data_utils import build_tokenizer, build_embedding_matrix, Tokenizer4Bert, 
 from models import LSTM,  MemNet, RAM, TD_LSTM, TC_LSTM, Cabasc, ATAE_LSTM, TNet_LF, AOA, MGAN, LCF_BERT
 from models.aen import CrossEntropyLoss_LSR, AEN_BERT
 from models.bert_spc import BERT_SPC
-from train import logger
+from train2 import logger
 import process_input
 import re
 import string

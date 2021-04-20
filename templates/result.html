@@ -1,0 +1,119 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Title</title>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--    {% for value in result %}-->
+
+<!--        <p>{{value}}</p>-->
+
+<!--    {% endfor %}-->
+
+<!--</body>-->
+<!--</html>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SigmaLaw-ABSA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename= 'style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <header>
+       <nav class="navbar navbar-style">
+            <div class="container div_nav">
+                <div class="navbar-header">
+                    <a href=""><img class="logo" src="/static/logo.png"></a>
+                </div>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="">Home</a></li>
+                    <li><a href="">Features</a></li>
+                    <li><a href="">Team</a></li>
+                </ul>
+            </div>
+       </nav>
+    </header>
+
+
+
+
+    <div class="container div_form">
+
+        <div class="row result center">
+            <div style="margin-top: -40px" class="col-md-6">
+                <img src="/static/result_image.png" class="img-responsive result_image">
+            </div>
+
+               <div class="col-md-6 form-group div_result">
+                   <div class="result__header">Here is your result!</div>
+                    <!-- <div style="font-size: 32px;text-align: center;">Here is your result!</div> -->
+
+                    <div class="signup-user__right">
+                        <div style="width:500px; text-align: center;">
+                        <h4>"{{result[0]}}"</h4>
+                        </div>
+
+                        {%if result[1]%}
+                        <div class="sentiment_div">
+                        <h4 class="sent_head">Sentiments for Petitioner</h4>
+                            <h5>Overall Sentiment: {{result[3]}}</h5>
+                           {% for key,value in result[1].items() %}
+                                <p class="text">{{key}} : {{value}}</p>
+                            {% endfor %}
+                        {%endif%}
+                        </div>
+
+                        {%if result[2]%}
+                        <div class="sentiment_div">
+                         <h4 class="sent_head">Sentiments for Defendant</h4>
+                            <h5>Overall Sentiment: {{result[4]}}</h5>
+                           {% for key,value in result[2].items() %}
+                                <p class="text">{{key}} : {{value}}</p>
+                            {% endfor %}
+                        {%endif%}
+                        </div>
+
+                        <div align="center">
+                        <a href="/" id="myBtn" type="submit" class="btn btn-submit btn_try">Try Another</a>
+                        </div>
+                    </div>
+               </div>
+        </div>
+
+    </div>
+
+        <!-- Footer-->
+       <div class="footer d-flex justify-content-between">
+        <div class="col-sm-4 footer_content" style="padding-left: 25px;">ABOUT
+            <p style="font-size: 13px; font-weight: 400; padding-top: 5px;">SigmaLaw-ABSA provides an easy way to lawyers or legal officials to obtain polarity level with respect to each legal party mentioned in a sentence. </p>
+        </div>
+        <div class="col-sm-5 footer_content" style="padding-left: 60px;">CONTACT US
+            <p style="font-size: 13px;margin-bottom: auto; font-weight: 400;padding-top: 15px;" ><i style="font-size:26px" class="fa fa-map-marker"></i><span style="margin-left: 20px; position: absolute;">Department of Computer Science & Engineering,
+               University of Moratuwa,
+               Sri Lanka.</span>
+            </p>
+<!--            <p style="font-size: 13px; margin-bottom: auto; font-weight: 400;"><i style="font-size:26px" class="fa fa-phone"></i><span style="margin-left: 10px; position: absolute;">(+94) 71 7438927</span></p>-->
+            <p style="font-size: 13px; font-weight: 400;"><i style="font-size:24px" class="fa fa-envelope"></i><span style="margin-left: 10px; position: absolute;">sigmalaw.absa@gmail.com</span></p>
+        </div>
+        <div class="col-sm-3 footer_content">FOLLOW US
+            <p><i class="fa fa-facebook-square" style="margin: 0 6px; font-size:48px;color: #3b5998d1"></i><span></span>
+            <i class="fa fa-github" style="margin: 0 6px; font-size:48px; color:#333333d6"></i></i><span></span>
+            <i class="fa fa-linkedin-square" style="margin: 0 6px; font-size:48px;color:#2867b2d9"></i><span></span></p>
+        </div>
+       </div>
+        <!-- end of footer-->
+
+
+</body>
+</html>
